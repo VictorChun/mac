@@ -1,0 +1,11 @@
+echo "$1"
+
+find . \( \
+            -name BUILD -o \
+            -name build -o \
+            -name bin -o \
+            -name downloads -o \
+            -name buildhistory \
+        \) -prune -o \
+        -not -name ".*" \
+        -name "$1*" 2>/dev/null

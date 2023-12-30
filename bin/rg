@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PATTERNS="*"
+if [ "$#" == 2 ]; then
+    PATTERNS="*.$2"
+fi
+
+find . \( \
+            -name BUILD -o \
+            -name build -o \
+            -name bin -o \
+            -name downloads -o \
+            -name buildhistory \
+        \) -prune -o \
+        -type f \
+        -not -name ".*" \
+        -name "$PATTERNS" 2>/dev/null -print0 | \
+        xargs -0 grep --color=always -n "$1" 2>/dev/null | \
+        sed 's/:/    /2'
